@@ -1,0 +1,12 @@
+{
+	"name": "com.redpill.videopose",
+	"version": "0.0.2",
+	"displayName": "RedPill VideoPose",
+	"samples": [
+		{
+			"displayName": "RedPill VideoPose demo",
+			"path": "Samples~/demo"
+		}
+	]
+}
+  
