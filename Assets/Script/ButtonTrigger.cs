@@ -58,7 +58,7 @@ public class ButtonTrigger : MonoBehaviour
         if (_isScaleReset)
         {
             _isScaleReset = false;
-            transform.DOScale(1.2f, 5).SetEase(Ease.OutCubic).OnComplete(() =>
+            transform.DOScale(1.2f, 3).SetEase(Ease.OutCubic).OnComplete(() =>
             {
                 transform.DOScale(1, 0);
                 btn.onClick.Invoke();

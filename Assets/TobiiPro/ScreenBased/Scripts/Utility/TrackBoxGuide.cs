@@ -111,7 +111,7 @@ namespace Tobii.Research.Unity
             {
                 Debug.Log("countdown: " + _countDownTime);
                 _countDownTime -= Time.deltaTime;
-                content.text = $"眼部校正將在 {Mathf.Max(Mathf.CeilToInt(_countDownTime), 0)} 秒後開始";
+                content.text = $"眼部校正將在 {Mathf.Max(Mathf.CeilToInt(_countDownTime), 0)} 秒後開始\n稍後請將視線跟隨<color=red>紅色圓點";
                 if (_countDownTime < 0)
                 {
                     Debug.Log("false");
@@ -123,7 +123,7 @@ namespace Tobii.Research.Unity
                             pointer.SetActive(true);
                             blackTestBtn.SetActive(true);
                             colorTestBtn.SetActive(true);
-                            content.text = "請問您今天想進行哪一種眼動測試呢？\n（凝視選項5秒）";
+                            content.text = "請問您今天想進行哪一種眼動測試呢？\n（凝視選項3秒）";
                         }
                     );
                 }
