@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class TobiiController : MonoBehaviour
     {
         HomePageControl(
             false,
-            "請依照數字順序（1 到 25），將視線依序注視螢幕上隨機分布的圓圈。每注視正確的數字，系統會自動連線；錯誤則不顯示任何反應。\n\n。準備好後，請凝視開始5秒。",
+            "請依照數字順序（1 到 25），將視線依序注視螢幕上隨機分布的圓圈。每注視正確的數字，系統會自動連線。\n\n。準備好後，請凝視開始3秒。",
             "測驗時間：約 50 秒至 20 分鐘"
         );
         mode = "black";
@@ -64,7 +65,7 @@ public class TobiiController : MonoBehaviour
     {
         HomePageControl(
             false,
-            "請依照圓圈內的數字順序，從 1 到 25 進行注視，並交替使用紅色與黃色數字（紅1 > 黃2 > 紅3 > 黃4...）。圓圈隨機分佈於畫面中，注視正確會自動連線，錯誤則無任何反應。\n\n。準備好後，請凝視開始5秒。",
+            "請依照圓圈內的數字順序，從 1 到 25 進行注視，並交替使用紅色與黃色數字（紅1 > 黃2 > 紅3 > 黃4...）。圓圈隨機分佈於畫面中，注視正確會自動連線。\n\n。準備好後，請凝視開始3秒。",
             "測驗時間：約 3 至 8 分鐘。"
         );
         mode = "color";
@@ -73,7 +74,7 @@ public class TobiiController : MonoBehaviour
     {
         HomePageControl(
             true,
-            "請問您今天想進行哪一項眼動測試呢？\n（凝視選項5秒）",
+            "請問您今天想進行哪一項眼動測試呢？\n（凝視選項3秒）",
             ""
         );
         TestPageControl(false);
@@ -144,7 +145,7 @@ public class TobiiController : MonoBehaviour
         }
         HomePageControl(
             true,
-            "請問您今天想進行哪一項眼動測試呢？\n（凝視選項5秒）",
+            "請問您今天想進行哪一項眼動測試呢？\n（凝視選項3秒）",
             ""
         );
     }
@@ -153,6 +154,7 @@ public class TobiiController : MonoBehaviour
     {
         endTime = Time.time;
         testDuration = endTime - startTime;
+        contentUnder.text = "測驗結果： " + Mathf.Round(testDuration).ToString() + " 秒";
         int score;
         if (mode == "black")
         {
