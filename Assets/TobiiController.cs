@@ -19,6 +19,11 @@ public class TobiiController : MonoBehaviour
     public Sprite starFull;
     public Sprite starEmpty;
     public GazePointVisualizer gazePointVisualizer;
+    public AudioSource audioSource;
+    public AudioClip questionAudio;
+    public AudioClip blackTestAudio;
+    public AudioClip colorTestAudio;
+    public AudioClip[] resultAudios;
 
     [SerializeField]
     [Tooltip("This key will show or hide the track box guide.")]
@@ -60,6 +65,7 @@ public class TobiiController : MonoBehaviour
             "測驗時間：約 50 秒至 20 分鐘"
         );
         mode = "black";
+        PlayAudio(blackTestAudio);
     }
     public void ColorTestClick()
     {
@@ -69,6 +75,7 @@ public class TobiiController : MonoBehaviour
             "測驗時間：約 3 至 8 分鐘。"
         );
         mode = "color";
+        PlayAudio(colorTestAudio);
     }
     public void TestBackBtn()
     {
@@ -78,6 +85,7 @@ public class TobiiController : MonoBehaviour
             ""
         );
         TestPageControl(false);
+        PlayAudio(questionAudio);
     }
 
     public void StartClick()
@@ -132,6 +140,7 @@ public class TobiiController : MonoBehaviour
             default:
                 break;
         }
+        PlayAudio(resultAudios[score]);
         StartCoroutine(DelayHideResult());
     }
 
@@ -148,6 +157,13 @@ public class TobiiController : MonoBehaviour
             "請問您今天想進行哪一項眼動測試呢？\n（凝視選項3秒）",
             ""
         );
+        PlayAudio(questionAudio);
+    }
+
+    private void PlayAudio(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     public void EndTest()
