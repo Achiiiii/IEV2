@@ -15,6 +15,10 @@ namespace Tobii.Research.Unity
         /// in Awake(), so call earliest in Start().
         /// </summary>
         public static TrackBoxGuide Instance { get; private set; }
+        public AudioSource audioSource;
+        public AudioClip closerAudio;
+        public AudioClip farerAudio;
+        public AudioClip questionAudio;
 
         [SerializeField]
         [Tooltip("Activate or deactivate the track box guide.")]
@@ -56,6 +60,8 @@ namespace Tobii.Research.Unity
         private float _validateTime;
         private float _countDownTime = 5;
         private bool _countDownLocker = false;
+        private float _time = 0;
+
 
         /// <summary>
         /// Activate or deactivate the track box guide.
@@ -124,6 +130,8 @@ namespace Tobii.Research.Unity
                             blackTestBtn.SetActive(true);
                             colorTestBtn.SetActive(true);
                             content.text = "請問您今天想進行哪一種眼動測試呢？\n（凝視選項3秒）";
+                            audioSource.clip = questionAudio;
+                            audioSource.Play();
                         }
                     );
                 }
@@ -162,6 +170,27 @@ namespace Tobii.Research.Unity
             var delta = Time.deltaTime / 2f;
             _leftEyeValidation = SetTrackabilitySlider(ref _trackabilityLeft, goLeftValid, _sliderLeft, delta);
             _rightEyeValidation = SetTrackabilitySlider(ref _trackabilityRight, goRightValid, _sliderRight, delta);
+
+            _time += Time.deltaTime;
+            if (_moverScale < 0.35f || _moverScale > 0.65f)
+            {
+                if (_time >= 5)
+                {
+                    if (_moverScale < 0.35f)
+                    {
+                        _time = 0;
+                        audioSource.clip = closerAudio;
+                        audioSource.Play();
+                    }
+                    if (_moverScale > 0.65f)
+                    {
+                        _time = 0;
+                        audioSource.clip = farerAudio;
+                        audioSource.Play();
+                    }
+                }
+            }
+            else _time = 0;
 
             if (_moverScale > 0.35f && _moverScale < 0.65f && _leftEyeValidation >= 0.8 && _rightEyeValidation >= 0.8) _validateTime += Time.deltaTime;
             else _validateTime = 0;
